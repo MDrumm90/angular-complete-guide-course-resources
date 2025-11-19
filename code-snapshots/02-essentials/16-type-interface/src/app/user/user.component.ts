@@ -1,26 +1,21 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-// type User = {
-//   id: string;
-//   avatar: string;
-//   name: string;
-// }
-
 interface User {
-  id: string;
-  avatar: string;
+  id: number;
   name: string;
+  avatar: string;
 }
 
 @Component({
   selector: 'app-user',
   standalone: true,
   templateUrl: './user.component.html',
-  styleUrl: './user.component.css',
+  styleUrls: ['./user.component.css'],
 })
+
 export class UserComponent {
   @Input({ required: true }) user!: User;
-  @Output() select = new EventEmitter();
+  @Output() select = new EventEmitter<string>();
 
   get imagePath() {
     return 'assets/users/' + this.user.avatar;
