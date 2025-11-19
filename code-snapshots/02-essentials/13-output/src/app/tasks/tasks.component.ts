@@ -11,11 +11,9 @@ import { TaskComponent } from "./task/task.component";
 export class TasksComponent {
   @Input({required: true}) name?: string;
   @Input({required: true}) userId!: string;
-  
+
 
 get usersTasks(){
-  console.log("Filtering tasks for userId:", this.userId);
-  console.log("Number of tasks available for userId " + this.tasks.filter(t => t.userId === this.userId).length);
   return this.tasks.filter(t => t.userId === this.userId);
 }
 
