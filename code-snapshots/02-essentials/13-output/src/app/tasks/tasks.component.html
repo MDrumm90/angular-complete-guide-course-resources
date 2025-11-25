@@ -2,13 +2,17 @@
     <header>
         <h2>{{name}}'s Tasks</h2>
         <menu>
-            <button>Add Tasks</button>
+            <button (click)="onStartAddTask()">Add Tasks</button>
         </menu>
     </header>
 
+    @if(showAddDialog){
+        <app-add-task [userId]="userId" (addTask)="onAddTask($event)" (close)="onEndAddingTask()" />
+    }
+
     <ul>
         @for(task of usersTasks; track task.id){
-            <li><app-task  [task]="task"/></li>
+            <li><app-task  [task]="task" (complete)="onCompleteTask($event)"/></li>
         }
     </ul>
 </section>
