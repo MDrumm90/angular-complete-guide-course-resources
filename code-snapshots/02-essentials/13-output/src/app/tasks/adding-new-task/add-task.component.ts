@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { type AddTask } from './add-task.model';
+import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-add-task',
@@ -12,15 +13,19 @@ import { type AddTask } from './add-task.model';
 })
 export class AddTaskComponent {
   @Input() userId!: string;
-  @Output() addTask = new EventEmitter<AddTask>();
   @Output() close = new EventEmitter<void>();
 
   title = '';
   summary = '';
   dueDate: Date = new Date();
+  tasksService: TasksService;
 
   private generateId() {
     return 't' + Date.now().toString(36);
+  }
+
+  constructor(taskService: TasksService) {
+    this.tasksService = taskService;
   }
 
   onAdd() {
@@ -36,13 +41,21 @@ export class AddTaskComponent {
       dueDate: this.dueDate,
     };
 
-    this.addTask.emit(newTask);
+    this.tasksService.addTask(newTask);
     this.reset();
     this.close.emit();
   }
 
   onSubmit(){
-    this.onAdd();
+     const  newTask: AddTask = {
+      id: this.generateId(),
+      userId: this.userId,
+      title: this.title,
+      summary: this.summary,
+      dueDate: this.dueDate,
+    };
+    this.tasksService.addTask(newTask);
+    this.close.emit();
   }
 
   onCancel(){
