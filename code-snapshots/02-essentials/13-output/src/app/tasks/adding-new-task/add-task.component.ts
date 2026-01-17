@@ -1,13 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { type AddTask } from './add-task.model';
 import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-add-task',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
+  standalone: false,
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.css']
 })
